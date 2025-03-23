@@ -1,3 +1,4 @@
+import 'package:firebasenew/travel/screens/wishd.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -43,7 +44,9 @@ class ProfilePage extends StatelessWidget {
 
 
 
-            _buildProfileOption(Icons.history, "Booking History", context),
+          TextButton(onPressed: (){
+            Navigator.push((context), MaterialPageRoute(builder: (context)=>wish()));
+          }, child: Text('Booking Hisory',style: TextStyle(color: Colors.black),)),
             _buildProfileOption(Icons.settings, "Settings", context),
             _buildProfileOption(Icons.help_outline, "Help Center", context),
 

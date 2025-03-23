@@ -1,4 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:firebasenew/travel/screens/wishd.dart';
 import 'package:firebasenew/travel/screens/wishlist.dart';
 import 'package:firebasenew/travel/states/karnataka.dart';
 import 'package:flutter/material.dart';
@@ -123,8 +124,8 @@ class _ExploreState extends State<Explore> {
                 controller: searchController,
                 onChanged: filterSearch, // Call function when user types
                 decoration: InputDecoration(
-                  hintText: "Search",
-                  labelText: "Start your Search",
+                  hintText: "Start your Search",
+
                   prefixIcon: Icon(Icons.search),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(30),
@@ -237,7 +238,7 @@ class _ExploreState extends State<Explore> {
                           borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
                           child: Image.asset(
                             listing['image'],
-                            height: 120,
+                            height: 100,
                             width: double.infinity,
                             fit: BoxFit.cover,
                           ),
@@ -262,10 +263,14 @@ class _ExploreState extends State<Explore> {
                                 children: [
                                   Text(listing['price'],
                                       style: TextStyle(fontWeight: FontWeight.bold)),
-                                  Row(
+                                  Row( mainAxisSize: MainAxisSize.min,
                                     children: [
                                       Icon(Icons.star, color: Colors.orange, size: 16),
                                       Text(listing['rating'].toString()),
+                                      IconButton(onPressed: (){
+
+                                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("booking added")));
+                                      }, icon: Icon(Icons.add,))
                                     ],
                                   ),
                                 ],

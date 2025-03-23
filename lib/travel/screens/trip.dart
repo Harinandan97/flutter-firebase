@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+
+import 'all.dart';
 void main(){
   runApp(MaterialApp(home: trips(),));
 }
@@ -24,7 +26,9 @@ class _tripsState extends State<trips> {
           child: Text("No trips booked...yet!",style: TextStyle(fontWeight: FontWeight.bold),),
 
         ),SizedBox(height: 20,),
-        ElevatedButton.icon(onPressed: (){}, label: Text("Start searching"),style:
+        ElevatedButton.icon(onPressed: (){
+          Navigator.push((context), MaterialPageRoute(builder: (context)=>Alllocations()));
+        }, label: Text("Start searching"),style:
           ElevatedButton.styleFrom(
             minimumSize: Size(40, 40),
           ),),
