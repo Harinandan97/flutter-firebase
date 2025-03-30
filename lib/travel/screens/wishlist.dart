@@ -1,3 +1,4 @@
+import 'package:firebasenew/travel/screens/wishd.dart';
 import 'package:flutter/material.dart';
 
 class WishlistPage extends StatefulWidget {
@@ -34,50 +35,55 @@ class _WishlistPageState extends State<WishlistPage> {
           var item = widget.wishlist[index];
           return Stack(
             children: [
-              Card(
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
-                      child: Image.asset(
-                        item['image'],
-                        height: 120,
-                        width: double.infinity,
-                        fit: BoxFit.cover,
+              GestureDetector(onTap: (){
+
+
+              },
+                child: Card(
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
+                        child: Image.asset(
+                          item['image'],
+                          height: 120,
+                          width: double.infinity,
+                          fit: BoxFit.cover,
+                        ),
                       ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            item['title'],
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                          SizedBox(height: 4),
-                          Text(item['location'], style: TextStyle(color: Colors.grey[600])),
-                          SizedBox(height: 4),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(item['price'], style: TextStyle(fontWeight: FontWeight.bold)),
-                              Row(
-                                children: [
-                                  Icon(Icons.star, color: Colors.orange, size: 16),
-                                  Text(item['rating'].toString()),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    )
-                  ],
+                      Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              item['title'],
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            SizedBox(height: 4),
+                            Text(item['location'], style: TextStyle(color: Colors.grey[600])),
+                            SizedBox(height: 4),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(item['price'], style: TextStyle(fontWeight: FontWeight.bold)),
+                                Row(
+                                  children: [
+                                    Icon(Icons.star, color: Colors.orange, size: 16),
+                                    Text(item['rating'].toString()),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ),
               Positioned(

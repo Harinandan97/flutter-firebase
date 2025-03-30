@@ -64,6 +64,7 @@ class _Goaa extends State<Goaa> {
       'About': 'Baroque architecture',
       'lat': 15.5009,
       'lng': 73.9082,
+
     },
     {
       'image': 'assets/images/Arambol Beach.jpg',

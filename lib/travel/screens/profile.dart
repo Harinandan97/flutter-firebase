@@ -1,3 +1,4 @@
+import 'package:firebasenew/travel/screens/settingsairbnb.dart';
 import 'package:firebasenew/travel/screens/wishd.dart';
 import 'package:flutter/material.dart';
 
@@ -47,8 +48,10 @@ class ProfilePage extends StatelessWidget {
           TextButton(onPressed: (){
             Navigator.push((context), MaterialPageRoute(builder: (context)=>wish()));
           }, child: Text('Booking Hisory',style: TextStyle(color: Colors.black),)),
-            _buildProfileOption(Icons.settings, "Settings", context),
-            _buildProfileOption(Icons.help_outline, "Help Center", context),
+            TextButton(onPressed: (){
+              Navigator.push((context), MaterialPageRoute(builder: (context)=>SettingsPage()));
+            }, child: Text('Settings',style: TextStyle(color: Colors.black),)),
+
 
             Divider(),
 
