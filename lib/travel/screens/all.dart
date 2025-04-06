@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class Alllocations extends StatefulWidget {
-  const Alllocations({super.key});
+  final Function(Map<String, dynamic>) onTripSelected;
+  const Alllocations({super.key, required this.onTripSelected});
 
   @override
   State<Alllocations> createState() => _AlllocationsState();
@@ -357,50 +358,55 @@ class _AlllocationsState extends State<Alllocations> {
                   var place = places[index];
 
                   return
-                    Card(
-                      shape: RoundedRectangleBorder(
-                          borderRadius:  BorderRadius.circular(12)),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
-                            child: Image.asset(
-                              place['image'],
-                              height: 130,
-                              width: double.infinity,
-                              fit: BoxFit.cover,
+                    GestureDetector( onTap: () {
+                      widget.onTripSelected(place); // Add the trip
+                      Navigator.pop(context, place); // Return to previous page with data
+                    },
+                      child: Card(
+                        shape: RoundedRectangleBorder(
+                            borderRadius:  BorderRadius.circular(12)),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
+                              child: Image.asset(
+                                place['image'],
+                                height: 130,
+                                width: double.infinity,
+                                fit: BoxFit.cover,
+                              ),
                             ),
-                          ),
 
 
-                          Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  place['title'],
-                                  style: TextStyle(fontWeight: FontWeight.bold),
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                                SizedBox(height: 4),
-                                Text(place['location'],
-                                    style: TextStyle(color: Colors.grey[600])),
-                                SizedBox(height: 4),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(place['About'],
-                                        style: TextStyle(fontWeight: FontWeight.bold, overflow: TextOverflow.ellipsis,)),
+                            Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    place['title'],
+                                    style: TextStyle(fontWeight: FontWeight.bold),
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                  SizedBox(height: 4),
+                                  Text(place['location'],
+                                      style: TextStyle(color: Colors.grey[600])),
+                                  SizedBox(height: 4),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(place['About'],
+                                          style: TextStyle(fontWeight: FontWeight.bold, overflow: TextOverflow.ellipsis,)),
 
-                                  ],
-                                ),
-                              ],
-                            ),
-                          )
-                        ],
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
                       ),
                     );
                 }),

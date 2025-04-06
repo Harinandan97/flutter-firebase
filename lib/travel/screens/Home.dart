@@ -9,6 +9,8 @@ import 'package:firebasenew/travel/screens/wishlist.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import '../../firebase_options.dart';
 import '../explore click/click.dart';
+import '../theme/themedata/themedatatravell.dart';
+import 'firebasebookeddata.dart';
 import 'message.dart';
 import 'wishlist.dart';
 
@@ -22,6 +24,9 @@ void main() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   runApp(GetMaterialApp(
+    theme: CustomTheme.lightTheme,
+    darkTheme: CustomTheme.darkTheme,
+    themeMode: ThemeMode.system,
     debugShowCheckedModeBanner: false,
     home: home(),
   ));
@@ -37,7 +42,7 @@ class home extends StatefulWidget {
 class _homeState extends State<home> {
   var screen=[
 
-    Explore() ,wish(),trips (),MessagesPage(),ProfilePage()
+    Explore() ,BookingHistory(),trips (),ChatListPage(),ProfilePage()
 
 
   ];int index=0;

@@ -15,14 +15,16 @@ import '../states/goa.dart';
 import '../states/kerala.dart';
 import '../states/tamilnadu.dart';
 import '../states/telangana.dart';
+import 'package:intl/intl.dart';
 
-// void main() async {
-//   WidgetsFlutterBinding.ensureInitialized();
-//   await Firebase.initializeApp(
-//     options: DefaultFirebaseOptions.currentPlatform,
-//   );
-//   runApp(MaterialApp(home: Explore()));
-// }
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  runApp(MaterialApp(home: Explore()));
+}
 
 class Explore extends StatefulWidget {
 
@@ -309,6 +311,56 @@ class _ExploreState extends State<Explore> {
 
   }
 }
+Future<void> _selectDate(BuildContext context, TextEditingController controller) async {
+  final DateTime? picked = await showDatePicker(
+    context: context,
+    initialDate: DateTime.now(),
+    firstDate: DateTime.now(),
+    lastDate: DateTime(2100),
+  );
+  if (picked != null) {
+    controller.text = DateFormat('yyyy-MM-dd').format(picked);
+  }
+}
+
+Future<void> hoteregister(
+    TextEditingController namee,
+    TextEditingController phone,
+    TextEditingController email,
+    TextEditingController cin,
+    TextEditingController cout,
+    TextEditingController hotelNameController,
+    TextEditingController locationcontroller
+
+    ) async {
+  try {
+    FirebaseFirestore firestore = FirebaseFirestore.instance;
+    final user = FirebaseAuth.instance.currentUser;
+    final uid = user?.uid;
+    if (uid == null) {
+      print("No user logged in. Cannot save booking.");
+      return;
+    }
+
+
+    await firestore.collection('book').add({
+      'name': namee.text.trim(),
+      'phone': phone.text.trim(),
+      'email': email.text.trim(),
+      'in': cin.text.trim(),
+      'out': cout.text.trim(),
+      'hotel name': hotelNameController.text.trim(),
+      'location': locationcontroller.text.trim(),
+      'timestamp': FieldValue.serverTimestamp(),
+      'uid': uid,
+    });
+
+    print("Booking added successfully!");
+  } catch (e) {
+    print("Failed to add booking: $e");
+  }
+}
+
 GlobalKey<FormState>form=GlobalKey();
 bool isAgreed = false;
 void show(BuildContext context, String imagePath, String hotelName,String locc,String pr)
@@ -319,8 +371,8 @@ void show(BuildContext context, String imagePath, String hotelName,String locc,S
   TextEditingController phone=TextEditingController();
   TextEditingController email=TextEditingController();
 
-  TextEditingController gust=TextEditingController();
-  TextEditingController room=TextEditingController();
+  // TextEditingController gust=TextEditingController();
+  // TextEditingController room=TextEditingController();
   TextEditingController cin=TextEditingController();
   TextEditingController cout=TextEditingController();
 
@@ -456,17 +508,18 @@ textAlign: TextAlign.center,
                 leading: Icon(Icons.calendar_today),
                 title: TextFormField(
                   controller: cin,
+                  readOnly: true,
                   decoration: InputDecoration(
                     hintText: "Check-in Date",
                     labelText: "Check-in Date",
                     border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
                   ),
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return "Please enter the check-in date";
+                  onTap:()=>_selectDate(context, cin),
+                   validator: (value){
+                    if(value!.isEmpty){
+                      return "please enter the check in date";
                     }
-                    return null;
-                  },
+                   }, 
                 ),
               ),
           ListTile(
@@ -478,6 +531,7 @@ textAlign: TextAlign.center,
                 labelText: "Check-out Date",
                 border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
               ),
+              onTap:()=>_selectDate(context, cout),
               validator: (value) {
                 if (value!.isEmpty) {
                   return "Please enter the check-out date";
@@ -498,9 +552,19 @@ textAlign: TextAlign.center,
               ElevatedButton(onPressed: ()async{
                 var valid=form.currentState!.validate();
                 if(valid){
-                  Navigator.pop(context);
 
-                // await hoteregister();
+
+                await hoteregister(
+
+                  namee,
+                  phone,
+                  email,
+                  cin,
+                  cout,
+                  hotelNameController,
+                  locationcontroller,
+                );
+                Navigator.pop(context);
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("booking added")));
                 }
 
@@ -513,7 +577,7 @@ textAlign: TextAlign.center,
 
       });
 
-  //
+
   // Future<void> hoteregister() async {
   //   try {
   //     FirebaseFirestore firestore = FirebaseFirestore.instance;

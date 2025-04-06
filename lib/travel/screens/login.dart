@@ -32,7 +32,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController passwordd = TextEditingController();
   final FirebaseAuth auth = FirebaseAuth.instance;
 
-  //  Define Admin Credentials
+  //  Define Admin
   final String adminEmail = "harinandan@gmail.com";
   final String adminPassword = "123456";
 

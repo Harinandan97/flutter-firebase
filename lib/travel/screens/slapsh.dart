@@ -8,7 +8,13 @@ import '../../firebase_options.dart';
 import 'login.dart';
 
 
-
+// date picker  done
+//image on booking
+//get support done
+//change delete into cancel done
+//payment option done
+// day calculation for payment
+// theme done
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
